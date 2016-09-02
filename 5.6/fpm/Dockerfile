@@ -8,8 +8,10 @@ RUN apk upgrade -U && \
     php5 \
     php5-bcmath \
     php5-dom \
+    php5-calendar \
     php5-ctype \
     php5-curl \
+    php5-exif \
     php5-fpm \
     php5-gd \
     php5-iconv \
