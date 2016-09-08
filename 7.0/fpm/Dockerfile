@@ -11,6 +11,7 @@ RUN apk upgrade -U && \
     php7-ctype \
     php7-curl \
     php7-fpm \
+    php7-gd \
     php7-iconv \
     php7-intl \
     php7-json \
