@@ -15,7 +15,8 @@ RUN apk upgrade -U && \
     php5-pdo \
     php5-pdo_mysql \
     php5-phar \
-    php5-posix
+    php5-posix \
+    php5-zip
 
 RUN rm -fr /var/cache/apk/*
 

@@ -15,7 +15,8 @@ RUN apk upgrade -U && \
     php7-pdo_mysql \
     php7-phar \
     php7-posix \
-    php7-session
+    php7-session \
+    php7-zip
 
 # Small fixes
 RUN ln -s /etc/php7 /etc/php && \
