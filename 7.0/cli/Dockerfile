@@ -16,6 +16,7 @@ RUN apk upgrade -U && \
     php7-phar \
     php7-posix \
     php7-session \
+    php7-soap \
     php7-zip
 
 # Small fixes
@@ -24,7 +25,7 @@ RUN ln -s /etc/php7 /etc/php && \
     ln -s /usr/lib/php7 /usr/lib/php && \
     rm -fr /var/cache/apk/*
 
-COPY php.ini /etc/php7
+COPY php.ini /etc/php7/conf.d/50-setting.ini
 
 ENTRYPOINT ["php"]
 CMD ["--help"]

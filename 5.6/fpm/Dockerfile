@@ -1,7 +1,4 @@
 FROM alpine:edge
-MAINTAINER François Fleur <fleur.fr@gmail.com>
-
-# see: http://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Update_the_Package_list
 
 RUN apk upgrade -U && \
     apk --update --repository=http://dl-4.alpinelinux.org/alpine/edge/testing add \

@@ -1,7 +1,4 @@
 FROM alpine:edge
-MAINTAINER François Fleur <fleur.fr@gmail.com>
-
-# see: http://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Update_the_Package_list
 
 RUN apk upgrade -U && \
     apk --update --repository=http://dl-4.alpinelinux.org/alpine/edge/testing add \
@@ -19,6 +16,7 @@ RUN apk upgrade -U && \
     php7-mcrypt \
     php7-mongodb \
     php7-mysqli \
+    php7-opcache \
     php7-openssl \
     php7-pdo \
     php7-pdo_mysql \
