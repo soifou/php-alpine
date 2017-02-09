@@ -25,6 +25,7 @@ RUN apk upgrade -U && \
     php7-session \
     php7-xml \
     php7-zip \
+    php7-zlib \
     rm -fr /var/cache/apk/*
 
 COPY php.ini /etc/php7/conf.d/50-setting.ini
