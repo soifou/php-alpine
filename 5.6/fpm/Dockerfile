@@ -21,6 +21,7 @@ RUN apk upgrade -U && \
     php5-pdo_mysql \
     php5-soap \
     php5-xml \
+    php5-zip \
     php5-zlib \
     rm -fr /var/cache/apk/*
 
@@ -36,4 +37,4 @@ USER dude
 
 WORKDIR /app
 EXPOSE 9000
-ENTRYPOINT ["/usr/bin/php-fpm", "-F"]
+ENTRYPOINT ["/usr/bin/php-fpm5", "-F"]
