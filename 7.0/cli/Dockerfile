@@ -1,31 +1,45 @@
 FROM alpine:edge
 
-RUN apk upgrade -U && \
-    apk --update --repository=http://dl-4.alpinelinux.org/alpine/edge/testing add \
+MAINTAINER François Fleur <fleur.fr@gmail.com>
+
+ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+
+# @NOTE: still using ssh2|simplexml|tokenizer extension from testing repo
+# posix extension is used for CLI colors
+RUN printf "http://php.codecasts.rocks/v3.5/php-7.0\nhttp://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    apk add --update --no-cache \
     php7 \
-    php7-curl \
+    php7-calendar \
     php7-ctype \
+    php7-curl \
     php7-dom \
+    php7-gd \
     php7-iconv \
+    php7-intl \
     php7-json \
     php7-mbstring \
+    php7-mongodb \
+    php7-mysqli \
     php7-mongodb \
     php7-openssl \
     php7-pdo \
     php7-pdo_mysql \
-    php7-phar \
     php7-posix \
-    php7-session \
+    php7-tokenizer \
+    php7-phar \
+    php7-redis \
+    php7-simplexml \
     php7-soap \
-    php7-zip
+    php7-ssh2 \
+    php7-xml \
+    php7-zlib
 
-# Small fixes
-RUN ln -s /etc/php7 /etc/php && \
-    ln -s /usr/bin/php7 /usr/bin/php && \
-    ln -s /usr/lib/php7 /usr/lib/php && \
-    rm -fr /var/cache/apk/*
+RUN mv $(find /etc/php7/conf.d/ -name ssh2.ini) /etc/php7/conf.d/25_ssh2.ini
 
-COPY php.ini /etc/php7/conf.d/50-setting.ini
+RUN rm -rf /tmp/src && \
+    rm -rf /var/cache/*
+
+COPY php.ini /etc/php7/conf.d/50_setting.ini
 
 ENTRYPOINT ["php"]
 CMD ["--help"]

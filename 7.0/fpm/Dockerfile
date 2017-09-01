@@ -1,12 +1,17 @@
 FROM alpine:edge
 
-RUN apk upgrade -U && \
-    apk --update --repository=http://dl-4.alpinelinux.org/alpine/edge/testing add \
+MAINTAINER François Fleur <fleur.fr@gmail.com>
+
+ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+
+# @NOTE: still using ssh2|simplexml|tokenizer extension from testing repo
+RUN printf "http://php.codecasts.rocks/v3.5/php-7.0\nhttp://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    apk add --update --no-cache \
     php7 \
-    php7-bcmath \
-    php7-dom \
+    php7-calendar \
     php7-ctype \
     php7-curl \
+    php7-dom \
     php7-fpm \
     php7-gd \
     php7-iconv \
@@ -16,19 +21,26 @@ RUN apk upgrade -U && \
     php7-mcrypt \
     php7-mongodb \
     php7-mysqli \
-    php7-opcache \
+    php7-mongodb \
     php7-openssl \
     php7-pdo \
     php7-pdo_mysql \
-    php7-posix \
+    php7-redis \
     php7-soap \
-    php7-session \
+    php7-phar \
+    php7-simplexml \
+    php7-soap \
+    php7-ssh2 \
+    php7-tokenizer \
     php7-xml \
-    php7-zip \
-    php7-zlib \
-    rm -fr /var/cache/apk/*
+    php7-zlib
 
-COPY php.ini /etc/php7/conf.d/50-setting.ini
+RUN mv $(find /etc/php7/conf.d/ -name ssh2.ini) /etc/php7/conf.d/25_ssh2.ini
+
+RUN rm -rf /tmp/src && \
+    rm -rf /var/cache/apk/*
+
+COPY php.ini /etc/php7/conf.d/50_setting.ini
 COPY php-fpm.conf /etc/php7/php-fpm.conf
 
 # fix permission issue

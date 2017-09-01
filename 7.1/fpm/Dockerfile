@@ -1,32 +1,46 @@
-FROM php:7.1-fpm-alpine
+FROM alpine:edge
 
-RUN apk upgrade -U && \
-    apk --update --repository=http://dl-4.alpinelinux.org/alpine/edge/testing add \
-        libcurl curl-dev \
-        libmcrypt-dev \
-        icu-dev \
-        freetype-dev libjpeg-turbo-dev libpng-dev \
-        libxml2-dev zlib-dev && \
-    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
-    docker-php-ext-install \
-        bcmath \
-        curl \
-        gd \
-        iconv \
-        intl \
-        json \
-        mbstring \
-        mcrypt \
-        mysqli \
-        opcache \
-        pdo \
-        pdo_mysql \
-        soap \
-        xml \
-        zip && \
-        rm -fr /var/cache/apk/*
+MAINTAINER François Fleur <fleur.fr@gmail.com>
 
-COPY php.ini /etc/php7/conf.d/50-setting.ini
+ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+
+# @NOTE: still using ssh2|simplexml|tokenizer extension from testing repo
+RUN printf "http://php.codecasts.rocks/edge/php-7.1\nhttp://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    apk add --update --no-cache \
+    php7 \
+    php7-calendar \
+    php7-ctype \
+    php7-curl \
+    php7-dom \
+    php7-fpm \
+    php7-gd \
+    php7-iconv \
+    php7-intl \
+    php7-json \
+    php7-mbstring \
+    php7-mcrypt \
+    php7-mongodb \
+    php7-mysqli \
+    php7-mongodb \
+    php7-openssl \
+    php7-pdo \
+    php7-pdo_mysql \
+    php7-redis \
+    php7-soap \
+    php7-phar \
+    php7-simplexml \
+    php7-soap \
+    php7-ssh2 \
+    php7-tokenizer \
+    php7-xml \
+    php7-zlib
+
+RUN mv $(find /etc/php7/conf.d/ -name ssh2.ini) /etc/php7/conf.d/25_ssh2.ini
+
+RUN rm -rf /tmp/src && \
+    rm -rf /var/cache/apk/*
+
+COPY php.ini /etc/php7/conf.d/50_setting.ini
 COPY php-fpm.conf /etc/php7/php-fpm.conf
 
 # fix permission issue
@@ -38,4 +52,4 @@ USER dude
 
 WORKDIR /app
 EXPOSE 9000
-ENTRYPOINT ["php-fpm", "-F"]
+ENTRYPOINT ["php-fpm7", "-F"]
