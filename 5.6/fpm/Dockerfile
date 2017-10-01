@@ -9,6 +9,7 @@ RUN apk upgrade -U && \
     php5-ctype \
     php5-curl \
     php5-exif \
+    php5-fileinfo \
     php5-fpm \
     php5-gd \
     php5-iconv \

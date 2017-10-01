@@ -12,6 +12,7 @@ RUN printf "http://php.codecasts.rocks/edge/php-7.1\nhttp://dl-cdn.alpinelinux.o
     php7-ctype \
     php7-curl \
     php7-dom \
+    php7-fileinfo \
     php7-fpm \
     php7-gd \
     php7-iconv \
@@ -33,6 +34,7 @@ RUN printf "http://php.codecasts.rocks/edge/php-7.1\nhttp://dl-cdn.alpinelinux.o
     php7-ssh2 \
     php7-tokenizer \
     php7-xml \
+    php7-zip \
     php7-zlib
 
 RUN mv $(find /etc/php7/conf.d/ -name ssh2.ini) /etc/php7/conf.d/25_ssh2.ini
