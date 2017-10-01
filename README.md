@@ -1,5 +1,9 @@
 # PHP CLI/FPM on Alpine Linux
 
+Alpine Edge
+Build with common extensions
+PHP 7.x are using PHPCodeCast repository
+
 ## Tags
 Versions and tags are based on PHP 5.x and 7.x versions.
 
@@ -15,46 +19,3 @@ The `fpm` tag is designed to be used with PHP-FPM (and fit very well with an Alp
 
 ## PHP extensions
 
-These images are cooked with common PHP extensions:
-```
-bcmath
-Core
-ctype
-curl
-date
-dom
-fileinfo
-filter
-ftp
-hash
-iconv
-intl
-json
-libxml
-mbstring
-mcrypt
-mysqli
-mysqlnd
-opcache
-openssl
-pcre
-PDO
-pdo_mysql
-pdo_sqlite
-Phar
-posix
-readline
-Reflection
-session
-SimpleXML
-soap
-SPL
-sqlite3
-standard
-tokenizer
-xml
-xmlreader
-xmlwriter
-zip
-zlib
-```
