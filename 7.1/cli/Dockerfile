@@ -32,6 +32,7 @@ RUN printf "http://php.codecasts.rocks/edge/php-7.1\nhttp://dl-cdn.alpinelinux.o
     php7-soap \
     php7-ssh2 \
     php7-xml \
+    php7-zip \
     php7-zlib
 
 RUN mv $(find /etc/php7/conf.d/ -name ssh2.ini) /etc/php7/conf.d/25_ssh2.ini
