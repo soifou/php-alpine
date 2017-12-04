@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.5
 
 RUN apk upgrade -U && \
     apk --update --repository=http://dl-4.alpinelinux.org/alpine/edge/testing add \
@@ -9,7 +9,6 @@ RUN apk upgrade -U && \
     php5-ctype \
     php5-curl \
     php5-exif \
-    php5-fileinfo \
     php5-fpm \
     php5-gd \
     php5-iconv \
@@ -23,8 +22,11 @@ RUN apk upgrade -U && \
     php5-soap \
     php5-xml \
     php5-zip \
-    php5-zlib \
-    rm -fr /var/cache/apk/*
+    php5-zlib
+
+# Cleanup
+RUN rm -rf /tmp/src && \
+    rm -rf /var/cache/*
 
 COPY php.ini /etc/php5/conf.d/50-setting.ini
 COPY php-fpm.conf /etc/php5/php-fpm.conf

@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.5
 
 RUN apk upgrade -U && \
     apk --update --repository=http://dl-4.alpinelinux.org/alpine/edge/testing add \
@@ -16,7 +16,9 @@ RUN apk upgrade -U && \
     php5-soap \
     php5-zip
 
-RUN rm -fr /var/cache/apk/*
+# Cleanup
+RUN rm -rf /tmp/src && \
+    rm -rf /var/cache/*
 
 COPY php.ini /etc/php5/conf.d/50-setting.ini
 

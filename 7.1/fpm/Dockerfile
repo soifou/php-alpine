@@ -1,43 +1,39 @@
-FROM alpine:edge
+FROM alpine:3.7
 
 MAINTAINER François Fleur <fleur.fr@gmail.com>
 
 ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
-# @NOTE: still using ssh2|simplexml|tokenizer extension from testing repo
-RUN printf "http://php.codecasts.rocks/edge/php-7.1\nhttp://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+# add the repository, make sure you replace the correct versions if you want.
+# posix extension is used for CLI colors
+RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.1" >> /etc/apk/repositories && \
     apk add --update --no-cache \
-    php7 \
-    php7-calendar \
-    php7-ctype \
-    php7-curl \
-    php7-dom \
-    php7-fileinfo \
-    php7-fpm \
-    php7-gd \
-    php7-iconv \
-    php7-intl \
-    php7-json \
-    php7-mbstring \
-    php7-mcrypt \
-    php7-mongodb \
-    php7-mysqli \
-    php7-mongodb \
-    php7-openssl \
-    php7-pdo \
-    php7-pdo_mysql \
-    php7-redis \
-    php7-soap \
-    php7-phar \
-    php7-simplexml \
-    php7-soap \
-    php7-ssh2 \
-    php7-tokenizer \
-    php7-xml \
-    php7-zip \
-    php7-zlib
-
-RUN mv $(find /etc/php7/conf.d/ -name ssh2.ini) /etc/php7/conf.d/25_ssh2.ini
+    ca-certificates \
+    php7-calendar@php \
+    php7-ctype@php \
+    php7-curl@php \
+    php7-dom@php \
+    php7-fileinfo@php \
+    php7-fpm@php \
+    php7-gd@php \
+    php7-iconv@php \
+    php7-intl@php \
+    php7-json@php \
+    php7-mbstring@php \
+    php7-mcrypt@php \
+    php7-mongodb@php \
+    php7-mysqli@php \
+    php7-mongodb@php \
+    php7-openssl@php \
+    php7-pdo@php \
+    php7-pdo_mysql@php \
+    php7-redis@php \
+    php7-soap@php \
+    php7-phar@php \
+    php7-soap@php \
+    php7-xml@php \
+    php7-zip@php \
+    php7-zlib@php
 
 RUN rm -rf /tmp/src && \
     rm -rf /var/cache/apk/*
