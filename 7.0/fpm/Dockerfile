@@ -1,7 +1,8 @@
 FROM alpine:3.5
 
+# @FIXME: php7-mongodb not available with repo http://dl-4.alpinelinux.org/alpine/v3.5/main ?
 RUN apk upgrade -U && \
-    apk --update --repository=http://dl-4.alpinelinux.org/alpine/v3.5/main add \
+    apk --update --repository=http://dl-4.alpinelinux.org/alpine/edge/testing add \
     php7-bcmath \
     php7-dom \
     php7-ctype \
