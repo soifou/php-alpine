@@ -9,6 +9,7 @@ ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.
 RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.1" >> /etc/apk/repositories && \
     apk add --update --no-cache \
     ca-certificates \
+    php7@php \
     php7-calendar@php \
     php7-ctype@php \
     php7-curl@php \
@@ -28,6 +29,7 @@ RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.1" >> /etc/apk/repositorie
     php7-phar@php \
     php7-redis@php \
     php7-soap@php \
+    php7-ssh2 \
     php7-xml@php \
     php7-zip@php \
     php7-zlib@php
