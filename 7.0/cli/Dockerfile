@@ -1,7 +1,6 @@
 FROM alpine:3.5
 
-# @FIXME: mongodb/redis/ssh2 not available in 3.5 repo
-RUN apk upgrade -U && \
+RUN apk add --update --no-cache \
     php7 \
     php7-calendar \
     php7-ctype \
@@ -24,17 +23,7 @@ RUN apk upgrade -U && \
     php7-zip \
     php7-zlib
 
-# Cleanup
-RUN rm -rf /tmp/src && \
-    rm -rf /var/cache/*
-
-# Small fixes
-RUN ln -s /etc/php7 /etc/php && \
-    ln -s /usr/bin/php7 /usr/bin/php && \
-    ln -s /usr/lib/php7 /usr/lib/php && \
-    rm -fr /var/cache/apk/*
-
 COPY php.ini /etc/php7/conf.d/50-setting.ini
 
-ENTRYPOINT ["php"]
+ENTRYPOINT ["php7"]
 CMD ["--help"]

@@ -20,7 +20,6 @@ RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.1" >> /etc/apk/repositorie
     php7-json@php \
     php7-mbstring@php \
     php7-mongodb@php \
-    php7-mongodb@php \
     php7-mysqli@php \
     php7-openssl@php \
     php7-pdo@php \
