@@ -20,6 +20,7 @@ RUN apk upgrade -U && \
     php5-pdo \
     php5-pdo_mysql \
     php5-soap \
+    php5-xdebug \
     php5-xml \
     php5-zip \
     php5-zlib

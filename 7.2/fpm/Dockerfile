@@ -28,6 +28,7 @@ RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.2" >> /etc/apk/repositorie
     php7-redis@php \
     php7-soap@php \
     php7-sodium@php \
+    php7-xdebug@php \
     php7-xml@php \
     php7-zip@php \
     php7-zlib@php

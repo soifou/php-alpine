@@ -23,6 +23,7 @@ RUN apk upgrade -U && \
     php7-posix \
     php7-soap \
     php7-session \
+    php7-xdebug \
     php7-xml \
     php7-zip
 
