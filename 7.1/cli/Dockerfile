@@ -1,7 +1,5 @@
 FROM alpine:3.7
 
-MAINTAINER François Fleur <fleur.fr@gmail.com>
-
 ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
 # add the repository, make sure you replace the correct versions if you want.
@@ -14,6 +12,7 @@ RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.1" >> /etc/apk/repositorie
     php7-ctype@php \
     php7-curl@php \
     php7-dom@php \
+    php7-ftp@php \
     php7-gd@php \
     php7-iconv@php \
     php7-intl@php \

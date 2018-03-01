@@ -7,6 +7,7 @@ RUN apk add --update --no-cache \
     php5-ctype \
     php5-curl \
     php5-dom \
+    php5-ftp \
     php5-gd \
     php5-iconv \
     php5-intl \

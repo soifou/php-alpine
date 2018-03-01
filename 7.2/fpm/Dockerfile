@@ -1,7 +1,5 @@
 FROM alpine:3.7
 
-MAINTAINER François Fleur <fleur.fr@gmail.com>
-
 ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
 RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.2" >> /etc/apk/repositories && \
