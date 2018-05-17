@@ -16,6 +16,7 @@ RUN apk upgrade -U && \
     php5-json \
     php5-mcrypt \
     php5-mysql \
+	php5-mysqli \
     php5-openssl \
     php5-pdo \
     php5-pdo_mysql \
