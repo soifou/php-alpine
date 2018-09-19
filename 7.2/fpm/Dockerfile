@@ -1,8 +1,8 @@
-FROM alpine:3.7
+FROM alpine:3.8
 
 ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
-RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.2" >> /etc/apk/repositories && \
+RUN echo "@php https://php.codecasts.rocks/v3.8/php-7.2" >> /etc/apk/repositories && \
     apk add --update --no-cache \
     ca-certificates \
     php7-calendar@php \
@@ -10,13 +10,13 @@ RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.2" >> /etc/apk/repositorie
     php7-curl@php \
     php7-dom@php \
     php7-fileinfo@php \
+    php7-ftp@php \
     php7-fpm@php \
     php7-gd@php \
     php7-iconv@php \
     php7-intl@php \
     php7-json@php \
     php7-mbstring@php \
-    php7-mcrypt@php \
     php7-mongodb@php \
     php7-mysqli@php \
     php7-openssl@php \

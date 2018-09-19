@@ -2,8 +2,6 @@ FROM alpine:3.7
 
 ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
-# add the repository, make sure you replace the correct versions if you want.
-# posix extension is used for CLI colors
 RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.1" >> /etc/apk/repositories && \
     apk add --update --no-cache \
     ca-certificates \
@@ -18,6 +16,7 @@ RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.1" >> /etc/apk/repositorie
     php7-intl@php \
     php7-json@php \
     php7-mbstring@php \
+    php7-mcrypt@php \
     php7-mongodb@php \
     php7-mysqli@php \
     php7-openssl@php \

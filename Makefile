@@ -2,6 +2,8 @@
 
 REPO=soifou/php-alpine
 
+build-all: build-fpm build-cli
+
 build-cli:
 	docker build -t $(REPO):cli-5.6 5.6/cli
 	docker build -t $(REPO):cli-7.0 7.0/cli

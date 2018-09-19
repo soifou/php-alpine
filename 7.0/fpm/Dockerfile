@@ -14,7 +14,6 @@ RUN apk upgrade --no-cache && \
     php7-json \
     php7-mbstring \
     php7-mcrypt \
-    php7-mongodb \
     php7-mysqli \
     php7-opcache \
     php7-openssl \
@@ -25,7 +24,8 @@ RUN apk upgrade --no-cache && \
     php7-session \
     php7-xdebug \
     php7-xml \
-    php7-zip
+    php7-zip \
+    php7-zlib
 
 # Cleanup
 RUN rm -rf /tmp/src && \
