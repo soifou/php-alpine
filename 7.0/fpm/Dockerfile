@@ -1,5 +1,8 @@
 FROM alpine:3.5
 
+ARG timezone=Europe/Paris
+ENV TIMEZONE=$timezone
+
 # @FIXME: php7-mongodb not available with repo http://dl-4.alpinelinux.org/alpine/v3.5/main ?
 RUN apk upgrade --no-cache && \
     apk --update --repository=http://dl-4.alpinelinux.org/alpine/edge/testing add \
@@ -25,20 +28,25 @@ RUN apk upgrade --no-cache && \
     php7-xdebug \
     php7-xml \
     php7-zip \
-    php7-zlib
+    php7-zlib \
+    tzdata
 
-# Cleanup
+# Match system timezone with the one set in php conf
+# https://wiki.alpinelinux.org/wiki/Setting_the_timezone
+RUN cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
+    echo "$TIMEZONE" > /etc/timezone \
+    apk del tzdata
+
 RUN rm -rf /tmp/src && \
-    rm -rf /var/cache/*
+    rm -rf /var/cache/apk/*
 
 COPY php.ini /etc/php7/conf.d/50-setting.ini
+RUN echo "date.timezone = $TIMEZONE" >> /etc/php7/conf.d/50-setting.ini
+
 COPY php-fpm.conf /etc/php7/php-fpm.conf
 
-# fix permission issue
-# @NOTE: set the same group id than the current host user ($ id -g)
-# for many Linux distrib id 1000 is fine
-RUN addgroup -g 1000 dude && \
-    adduser -D  -G dude -s /bin/false -u 1000 dude
+# Create dummy user to fix permission
+RUN adduser -G wheel -D dude
 USER dude
 
 WORKDIR /app

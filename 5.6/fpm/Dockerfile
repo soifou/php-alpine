@@ -1,5 +1,8 @@
 FROM alpine:3.5
 
+ARG timezone=Europe/Paris
+ENV TIMEZONE=$timezone
+
 RUN apk upgrade -U && \
     apk --update --repository=http://dl-4.alpinelinux.org/alpine/edge/testing add \
     php5 \
@@ -24,20 +27,25 @@ RUN apk upgrade -U && \
     php5-xdebug \
     php5-xml \
     php5-zip \
-    php5-zlib
+    php5-zlib \
+    tzdata
 
-# Cleanup
+# Match system timezone with the one set in php conf
+# https://wiki.alpinelinux.org/wiki/Setting_the_timezone
+RUN cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
+    echo "$TIMEZONE" > /etc/timezone \
+    apk del tzdata
+
 RUN rm -rf /tmp/src && \
-    rm -rf /var/cache/*
+    rm -rf /var/cache/apk/*
 
 COPY php.ini /etc/php5/conf.d/50-setting.ini
+RUN echo "date.timezone = $TIMEZONE" >> /etc/php5/conf.d/50-setting.ini
+
 COPY php-fpm.conf /etc/php5/php-fpm.conf
 
-# fix permission issue
-# @NOTE: set the same group id than the current host user ($ id -g)
-# for many Linux distrib id 1000 is fine
-RUN addgroup -g 1000 dude && \
-    adduser -D  -G dude -s /bin/false -u 1000 dude
+# Create dummy user to fix permission
+RUN adduser -G wheel -D dude
 USER dude
 
 WORKDIR /app

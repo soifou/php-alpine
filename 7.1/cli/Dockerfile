@@ -1,5 +1,7 @@
 FROM alpine:3.7
 
+ARG timezone=Europe/Paris
+ENV TIMEZONE=$timezone
 ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
 RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.1" >> /etc/apk/repositories && \
@@ -29,12 +31,20 @@ RUN echo "@php https://php.codecasts.rocks/v3.7/php-7.1" >> /etc/apk/repositorie
     php7-ssh2@php \
     php7-xml@php \
     php7-zip@php \
-    php7-zlib@php
+    php7-zlib@php \
+    tzdata
+
+# Match system timezone with the one set in php conf
+# https://wiki.alpinelinux.org/wiki/Setting_the_timezone
+RUN cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
+    echo "$TIMEZONE" > /etc/timezone \
+    apk del tzdata
 
 RUN rm -rf /tmp/src && \
-    rm -rf /var/cache/*
+    rm -rf /var/cache/apk/*
 
 COPY php.ini /etc/php7/conf.d/50_setting.ini
+RUN echo "date.timezone = $TIMEZONE" >> /etc/php7/conf.d/50_setting.ini
 
 ENTRYPOINT ["php7"]
 CMD ["--help"]

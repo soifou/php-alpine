@@ -1,5 +1,7 @@
 FROM alpine:3.8
 
+ARG timezone=Europe/Paris
+ENV TIMEZONE=$timezone
 ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
 RUN echo "@php https://php.codecasts.rocks/v3.8/php-7.2" >> /etc/apk/repositories && \
@@ -19,6 +21,7 @@ RUN echo "@php https://php.codecasts.rocks/v3.8/php-7.2" >> /etc/apk/repositorie
     php7-mbstring@php \
     php7-mongodb@php \
     php7-mysqli@php \
+    php7-mysqlnd@php \
     php7-openssl@php \
     php7-pdo@php \
     php7-pdo_mysql@php \
@@ -29,19 +32,29 @@ RUN echo "@php https://php.codecasts.rocks/v3.8/php-7.2" >> /etc/apk/repositorie
     php7-xdebug@php \
     php7-xml@php \
     php7-zip@php \
-    php7-zlib@php
+    php7-zlib@php \
+    tzdata
+
+# Match system timezone with the one set in php conf
+# https://wiki.alpinelinux.org/wiki/Setting_the_timezone
+RUN cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
+    echo "$TIMEZONE" > /etc/timezone \
+    apk del tzdata
 
 RUN rm -rf /tmp/src && \
     rm -rf /var/cache/apk/*
 
+# Fix warning "Unable to load dynamic library 'mysqli'" on Alpine 3.8
+# Load mysql extension after mysqlnd extension
+RUN mv /etc/php7/conf.d/00_mysqli.ini /etc/php7/conf.d/02_mysqli.ini
+
 COPY php.ini /etc/php7/conf.d/50_setting.ini
+RUN echo "date.timezone = $TIMEZONE" >> /etc/php7/conf.d/50_setting.ini
+
 COPY php-fpm.conf /etc/php7/php-fpm.conf
 
-# fix permission issue
-# @NOTE: set the same group id than the current host user ($ id -g)
-# for many Linux distrib id 1000 is fine
-RUN addgroup -g 1000 dude && \
-    adduser -D  -G dude -s /bin/false -u 1000 dude
+# Create dummy user to fix permission
+RUN adduser -G wheel -D dude
 USER dude
 
 WORKDIR /app
