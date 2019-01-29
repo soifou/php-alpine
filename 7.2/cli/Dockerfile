@@ -46,10 +46,6 @@ RUN cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
 RUN rm -rf /tmp/src && \
     rm -rf /var/cache/apk/*
 
-# Fix warning "Unable to load dynamic library 'mysqli'" on Alpine 3.8
-# Load mysql extension after mysqlnd extension
-RUN mv /etc/php7/conf.d/00_mysqli.ini /etc/php7/conf.d/02_mysqli.ini
-
 COPY php.ini /etc/php7/conf.d/50_setting.ini
 RUN echo "date.timezone = $TIMEZONE" >> /etc/php7/conf.d/50_setting.ini
 
