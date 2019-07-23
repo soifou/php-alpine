@@ -2,7 +2,7 @@
 
 Alpine Linux  
 Build with common PHP extensions  
-PHP 7.x are using [PHPCodeCast](https://github.com/codecasts/php-alpine) repository  
+PHP 7.2 and 7.3 are using [PHPCodeCast](https://github.com/codecasts/php-alpine) repository  
 
 ## Tags
 
@@ -23,3 +23,4 @@ The `fpm` tag is designed to be used with PHP-FPM (and fit very well with an Alp
 -   `fpm-7.1`
 -   `fpm-7.0`
 -   `fpm-5.6`
+
