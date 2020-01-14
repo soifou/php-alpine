@@ -1,10 +1,10 @@
-FROM alpine:3.9
+FROM alpine:3.10
 
 ARG timezone=Europe/Paris
 ENV TIMEZONE=$timezone
 ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
-RUN echo "https://dl.bintray.com/php-alpine/v3.9/php-7.3" >> /etc/apk/repositories && \
+RUN echo "https://dl.bintray.com/php-alpine/v3.10/php-7.4" >> /etc/apk/repositories && \
     apk add --update --no-cache \
     ca-certificates \
     php7-bcmath \

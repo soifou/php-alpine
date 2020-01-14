@@ -33,15 +33,15 @@ RUN apk upgrade --no-cache && \
 
 # Match system timezone with the one set in php conf
 # https://wiki.alpinelinux.org/wiki/Setting_the_timezone
-RUN cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
-    echo "$TIMEZONE" > /etc/timezone \
-    apk del tzdata
+# RUN cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
+#     echo "$TIMEZONE" > /etc/timezone \
+#     apk del tzdata
 
 RUN rm -rf /tmp/src && \
     rm -rf /var/cache/apk/*
 
 COPY php.ini /etc/php7/conf.d/50-setting.ini
-RUN echo "date.timezone = $TIMEZONE" >> /etc/php7/conf.d/50-setting.ini
+# RUN echo "date.timezone = $TIMEZONE" >> /etc/php7/conf.d/50-setting.ini
 
 COPY php-fpm.conf /etc/php7/php-fpm.conf
 
