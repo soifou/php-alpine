@@ -5,36 +5,39 @@ ENV TIMEZONE=$timezone
 ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
 # add the repository, make sure you replace the correct versions if you want.
-# posix extension is used for CLI colors
 RUN echo "https://dl.bintray.com/php-alpine/v3.10/php-7.4" >> /etc/apk/repositories && \
     apk add --update --no-cache \
     ca-certificates \
-    php7 \
-    php7-calendar \
-    php7-ctype \
-    php7-curl \
-    php7-dom \
-    php7-exif \
-    php7-ftp \
-    php7-gd \
-    php7-iconv \
-    php7-intl \
-    php7-json \
-    php7-mbstring \
-    # php7-mongodb \
-    php7-mysqli \
-    php7-mysqlnd \
-    php7-openssl \
-    php7-pdo \
-    php7-pdo_mysql \
-    php7-phar \
-    php7-posix \
-    php7-redis \
-    php7-soap \
-    php7-sodium \
-    php7-xml \
-    php7-zip \
-    php7-zlib \
+    php \
+    php-calendar \
+    php-ctype \
+    php-curl \
+    php-dom \
+    php-exif \
+    php-ftp \
+    php-gd \
+    php-iconv \
+    php-intl \
+    php-json \
+    php-mbstring \
+    php-mongodb \
+    php-mysqli \
+    php-mysqlnd \
+    php-openssl \
+    php-pdo \
+    php-pdo_mysql \
+    php-pdo_pgsql \
+    php-pdo_sqlite \
+    php-pgsql \
+    php-phar \
+    php-posix \
+    php-redis \
+    php-soap \
+    php-sodium \
+    php-sqlite3 \
+    php-xml \
+    php-zip \
+    php-zlib \
     tzdata
 
 # Match system timezone with the one set in php conf
@@ -48,6 +51,8 @@ RUN rm -rf /tmp/src && \
 
 COPY php.ini /etc/php7/conf.d/50_setting.ini
 # RUN echo "date.timezone = $TIMEZONE" >> /etc/php7/conf.d/50_setting.ini
+
+RUN ln -sf /usr/bin/php7 /usr/bin/php
 
 ENTRYPOINT ["/usr/bin/php7"]
 CMD ["--help"]

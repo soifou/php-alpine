@@ -21,7 +21,7 @@ RUN echo "https://dl.bintray.com/php-alpine/v3.9/php-7.3" >> /etc/apk/repositori
     php7-intl \
     php7-json \
     php7-mbstring \
-    # php7-mongodb \
+    php7-mongodb \
     php7-mysqli \
     php7-mysqlnd \
     php7-openssl \
@@ -48,6 +48,8 @@ RUN rm -rf /tmp/src && \
 
 COPY php.ini /etc/php7/conf.d/50_setting.ini
 # RUN echo "date.timezone = $TIMEZONE" >> /etc/php7/conf.d/50_setting.ini
+
+RUN ln -sf /usr/bin/php7 /usr/bin/php
 
 ENTRYPOINT ["/usr/bin/php7"]
 CMD ["--help"]

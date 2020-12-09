@@ -26,7 +26,9 @@ RUN apk add --update --no-cache \
     php7-redis \
     php7-soap \
     php7-phar \
+    php7-simplexml \
     php7-soap \
+    php7-tokenizer \
     php7-xdebug \
     php7-xml \
     php7-zip \

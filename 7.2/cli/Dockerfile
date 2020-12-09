@@ -31,7 +31,9 @@ RUN echo "https://dl.bintray.com/php-alpine/v3.8/php-7.2" >> /etc/apk/repositori
     php7-redis \
     php7-soap \
     php7-sodium \
+    php7-simplexml \
     php7-ssh2 \
+    php7-tokenizer \
     php7-xml \
     php7-zip \
     php7-zlib \

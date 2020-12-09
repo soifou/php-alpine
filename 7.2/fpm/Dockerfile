@@ -19,7 +19,6 @@ RUN echo "https://dl.bintray.com/php-alpine/v3.8/php-7.2" >> /etc/apk/repositori
     php7-intl \
     php7-json \
     php7-mbstring \
-    php7-mongodb \
     php7-mysqli \
     php7-mysqlnd \
     php7-openssl \
@@ -27,8 +26,10 @@ RUN echo "https://dl.bintray.com/php-alpine/v3.8/php-7.2" >> /etc/apk/repositori
     php7-pdo_mysql \
     php7-phar \
     php7-redis \
+    php7-simplexml \
     php7-soap \
     php7-sodium \
+    php7-tokenizer \
     php7-xdebug \
     php7-xml \
     php7-zip \
