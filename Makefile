@@ -2,61 +2,29 @@
 
 REPO=soifou/php-alpine
 TIMEZONE=Europe/Paris
+VERSIONS?="5.6 7.0 7.1 7.2 7.3 7.4 8.0"
 
 build-all: build-fpm build-cli
 
-build-cli: 5.6/cli 7.0/cli 7.1/cli 7.2/cli 7.3/cli 7.4/cli
-	docker build -t $(REPO):cli-5.6 --build-arg timezone=$(TIMEZONE) 5.6/cli
-	docker build -t $(REPO):cli-7.0 --build-arg timezone=$(TIMEZONE) 7.0/cli
-	docker build -t $(REPO):cli-7.1 --build-arg timezone=$(TIMEZONE) 7.1/cli
-	docker build -t $(REPO):cli-7.2 --build-arg timezone=$(TIMEZONE) 7.2/cli
-	docker build -t $(REPO):cli-7.3 --build-arg timezone=$(TIMEZONE) 7.3/cli
-	docker build -t $(REPO):cli-7.4 --build-arg timezone=$(TIMEZONE) 7.4/cli
+build-cli: 5.6/cli 7.0/cli 7.1/cli 7.2/cli 7.3/cli 7.4/cli 8.0/cli
+	for i in $(VERSIONS) ; do \
+		docker build -t $(REPO):cli-$$i --build-arg timezone=$(TIMEZONE) $$i/cli ; \
+	done
 
-build-fpm: 5.6/fpm 7.0/fpm 7.1/fpm 7.2/fpm 7.3/fpm 7.4/fpm
-	docker build -t $(REPO):fpm-5.6 --build-arg timezone=$(TIMEZONE) 5.6/fpm
-	docker build -t $(REPO):fpm-7.0 --build-arg timezone=$(TIMEZONE) 7.0/fpm
-	docker build -t $(REPO):fpm-7.1 --build-arg timezone=$(TIMEZONE) 7.1/fpm
-	docker build -t $(REPO):fpm-7.2 --build-arg timezone=$(TIMEZONE) 7.2/fpm
-	docker build -t $(REPO):fpm-7.3 --build-arg timezone=$(TIMEZONE) 7.3/fpm
-	docker build -t $(REPO):fpm-7.4 --build-arg timezone=$(TIMEZONE) 7.4/fpm
+build-fpm: 5.6/fpm 7.0/fpm 7.1/fpm 7.2/fpm 7.3/fpm 7.4/fpm 8.0/fpm
+	for i in $(VERSIONS) ; do \
+		docker build -t $(REPO):fpm-$$i --build-arg timezone=$(TIMEZONE) $$i/fpm ; \
+	done
 
 clean:
-	docker rmi $(REPO):cli-5.6
-	docker rmi $(REPO):cli-7.0
-	docker rmi $(REPO):cli-7.1
-	docker rmi $(REPO):cli-7.2
-	docker rmi $(REPO):cli-7.3
-	docker rmi $(REPO):cli-7.4
-
-	docker rmi $(REPO):fpm-5.6
-	docker rmi $(REPO):fpm-7.0
-	docker rmi $(REPO):fpm-7.1
-	docker rmi $(REPO):fpm-7.2
-	docker rmi $(REPO):fpm-7.3
-	docker rmi $(REPO):fpm-7.4
+	for i in $(VERSIONS) ; do \
+		docker rmi $(REPO):cli-$$i ; \
+		docker rmi $(REPO):fpm-$$i ; \
+	done
 
 test:
-	# version
-	docker run --rm -it $(REPO):cli-5.6 -v
-	docker run --rm -it $(REPO):cli-7.0 -v
-	docker run --rm -it $(REPO):cli-7.1 -v
-	docker run --rm -it $(REPO):cli-7.2 -v
-	docker run --rm -it $(REPO):cli-7.3 -v
-	docker run --rm -it $(REPO):cli-7.4 -v
-
-	# modules
-	docker run --rm -it $(REPO):cli-5.6 -m
-	docker run --rm -it $(REPO):cli-7.0 -m
-	docker run --rm -it $(REPO):cli-7.1 -m
-	docker run --rm -it $(REPO):cli-7.2 -m
-	docker run --rm -it $(REPO):cli-7.3 -m
-	docker run --rm -it $(REPO):cli-7.4 -m
-
-	# timezone
-	docker run --rm -it $(REPO):cli-5.6 -i | grep "TIMEZONE ="
-	docker run --rm -it $(REPO):cli-7.0 -i | grep "TIMEZONE ="
-	docker run --rm -it $(REPO):cli-7.1 -i | grep "TIMEZONE ="
-	docker run --rm -it $(REPO):cli-7.2 -i | grep "TIMEZONE ="
-	docker run --rm -it $(REPO):cli-7.3 -i | grep "TIMEZONE ="
-	docker run --rm -it $(REPO):cli-7.4 -i | grep "TIMEZONE ="
+	for i in $(VERSIONS) ; do \
+		docker run --rm -it $(REPO):cli-$$i -v ; \
+		docker run --rm -it $(REPO):cli-$$i -m ; \
+		docker run --rm -it $(REPO):cli-$$i -i | grep "TIMEZONE =" ; \
+	done
