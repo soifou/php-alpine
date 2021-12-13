@@ -1,10 +1,12 @@
 FROM alpine:3.10
 
 ARG timezone=Europe/Paris
-ENV TIMEZONE=$timezone
-ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+ENV PHP_VERSION=7.4
+# ENV TIMEZONE=$timezone
 
-RUN echo "https://dl.bintray.com/php-alpine/v3.10/php-7.4" >> /etc/apk/repositories && \
+RUN ALPINE_VERSION=`cat /etc/alpine-release | cut -d'.' -f-2` && \
+    wget -O /etc/apk/keys/php-alpine.rsa.pub https://php.hernandev.com/key/php-alpine.rsa.pub && \
+    echo "https://php.hernandev.com/v$ALPINE_VERSION/php-$PHP_VERSION" >> /etc/apk/repositories && \
     apk add --update --no-cache \
     ca-certificates \
     php-bcmath \
