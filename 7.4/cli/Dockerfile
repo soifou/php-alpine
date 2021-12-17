@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.12
 
 ARG timezone=Europe/Paris
 ENV PHP_VERSION=7.4
