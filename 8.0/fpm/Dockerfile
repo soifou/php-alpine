@@ -31,6 +31,7 @@ RUN ALPINE_VERSION=`cat /etc/alpine-release | cut -d'.' -f-2` && \
     php8-pdo_sqlite \
     php8-pgsql \
     php8-phar \
+    php8-posix \
     php8-redis \
     php8-soap \
     php8-sodium \

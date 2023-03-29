@@ -1,30 +1,62 @@
-.PHONY: build-cli build-fpm clean test
+.PHONY: build clean
 
 REPO=soifou/php-alpine
-TIMEZONE=Europe/Paris
-VERSIONS?="5.6 7.0 7.1 7.2 7.3 7.4 8.0"
+VERSIONS?="8.1 8.2"
+BUILDKIT_PROGRESS=plain
+COMPOSER_VERSION=2.5.5
 
-build-all: build-fpm build-cli
+build:
+	# CLI
+	# docker build -t $(REPO):cli-8.2 --build-arg php_version=82 --build-arg alpine_version=edge cli
+	docker build -t $(REPO):cli-8.1 --build-arg php_version=81 --build-arg alpine_version=3.17 cli
+	# CLI (WKHTMLTOPDF)
+	# docker build -t $(REPO):cli-8.2-wkhtmltopdf --build-arg php_version=8.2 cli-wkhtmltopdf
+	docker build -t $(REPO):cli-8.1-wkhtmltopdf --build-arg php_version=8.1 cli-wkhtmltopdf
+	# CLI (COMPOSER)
+	# docker build -t $(REPO):cli-8.2-composer --build-arg php_version=8.2 --build-arg composer_version=$(COMPOSER_VERSION) cli-composer
+	docker build -t $(REPO):cli-8.1-composer --build-arg php_version=8.1 --build-arg composer_version=$(COMPOSER_VERSION) cli-composer
+	# FPM
+	# docker build -t $(REPO):fpm-8.2 --build-arg php_version=82 --build-arg alpine_version=edge fpm
+	docker build -t $(REPO):fpm-8.1 --build-arg php_version=81 --build-arg alpine_version=3.17 fpm
+	# FPM (WKHTMLTOPDF)
+	# docker build -t $(REPO):fpm-8.2-wkhtmltopdf --build-arg php_version=8.2 fpm-wkhtmltopdf
+	docker build -t $(REPO):fpm-8.1-wkhtmltopdf --build-arg php_version=8.1 fpm-wkhtmltopdf
 
-build-cli: 5.6/cli 7.0/cli 7.1/cli 7.2/cli 7.3/cli 7.4/cli 8.0/cli
-	for i in $(VERSIONS) ; do \
-		docker build -t $(REPO):cli-$$i --build-arg timezone=$(TIMEZONE) $$i/cli ; \
-	done
+cli:
+	# for i in $(VERSIONS) ; do \
+	# 	docker build -t $(REPO):cli-$$i --build-arg timezone=$(TIMEZONE) $$i/cli ; \
+	# done
 
-build-fpm: 5.6/fpm 7.0/fpm 7.1/fpm 7.2/fpm 7.3/fpm 7.4/fpm 8.0/fpm
-	for i in $(VERSIONS) ; do \
-		docker build -t $(REPO):fpm-$$i --build-arg timezone=$(TIMEZONE) $$i/fpm ; \
-	done
+fpm:
+	# 8.0
+	# docker build -t $(REPO):fpm-8 --build-arg php_version=8 --build-arg alpine_version=3.16 fpm
+	# 7.4
+	# docker build -t $(REPO):fpm-7 --build-arg php_version=7 --build-arg alpine_version=3.15 fpm
+	# 7.3
+	# docker build -t $(REPO):fpm-7 --build-arg php_version=7 --build-arg alpine_version=3.12 fpm
+
+	# docker build -t $(REPO):
+	# for i in $(VERSIONS) ; do \
+	# 	docker build -t $(REPO):fpm-$$i --build-arg timezone=$(TIMEZONE) $$i/fpm ; \
+	# done
+
+cli-8.2:
+	docker build -t $(REPO):cli-8.2 --build-arg php_version=82 --build-arg alpine_version=edge cli
+cli-8.1:
+	docker build -t $(REPO):cli-8.1 --build-arg php_version=81 --build-arg alpine_version=3.17 cli
+
 
 clean:
 	for i in $(VERSIONS) ; do \
 		docker rmi $(REPO):cli-$$i ; \
+		docker rmi $(REPO):cli-$$i-wkhtmltopdf ; \
 		docker rmi $(REPO):fpm-$$i ; \
+		docker rmi $(REPO):fpm-$$i-wkhtmltopdf ; \
 	done
 
 test:
 	for i in $(VERSIONS) ; do \
 		docker run --rm -it $(REPO):cli-$$i -v ; \
 		docker run --rm -it $(REPO):cli-$$i -m ; \
-		docker run --rm -it $(REPO):cli-$$i -i | grep "TIMEZONE =" ; \
+		docker run --rm -it $(REPO):cli-$$i -i ; \
 	done
