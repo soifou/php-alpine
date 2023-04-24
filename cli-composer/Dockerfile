@@ -4,6 +4,9 @@ FROM soifou/php-alpine:cli-$php_version
 ARG composer_version=2.5.5
 ENV COMPOSER_VERSION=$composer_version
 
+RUN apk add --update --no-cache \
+    ca-certificates git
+
 COPY ./composer.sh /composer.sh
 RUN chmod u+x /composer.sh && \
     sh /composer.sh $COMPOSER_VERSION
