@@ -8,7 +8,7 @@ USER root
 #################################################################################################
 RUN apk add --update --no-cache \
     libgcc libstdc++ libx11 glib libxrender libxext libintl \
-    ttf-dejavu ttf-droid ttf-freefont ttf-liberation openssl1.1-compat
+    ttf-dejavu ttf-droid ttf-freefont ttf-liberation
 
 COPY --from=atrelios/docker-alpine-wkhtmltopdf:latest-amd64 \
     /bin/wkhtmltopdf /usr/bin/wkhtmltopdf

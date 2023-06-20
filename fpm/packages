@@ -4,10 +4,12 @@ ctype
 curl
 dom
 exif
+fileinfo
 fpm
 ftp
 gd
 iconv
+pecl-imagick
 intl
 mbstring
 mongodb

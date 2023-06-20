@@ -6,7 +6,7 @@ ENV PHP_VERSION=$php_version
 COPY packages /tmp/packages
 
 RUN apk add --update --no-cache \
-    ca-certificates tzdata \
+    ca-certificates tzdata imagemagick \
     $(sed -e "s/^/php$PHP_VERSION-/" /tmp/packages | xargs)
 
 RUN rm -rf /tmp/* && \
