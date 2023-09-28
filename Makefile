@@ -3,7 +3,7 @@
 REPO=soifou/php-alpine
 VERSIONS?="8.1 8.2"
 BUILDKIT_PROGRESS=plain
-COMPOSER_VERSION=2.5.8
+COMPOSER_VERSION=2.6.3
 
 build:
 	# CLI

@@ -1,7 +1,7 @@
 ARG php_version=8.2
 FROM soifou/php-alpine:cli-$php_version
 
-ARG composer_version=2.5.8
+ARG composer_version=2.6.3
 ENV COMPOSER_VERSION=$composer_version
 
 RUN apk add --update --no-cache \
