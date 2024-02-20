@@ -5,8 +5,10 @@ ENV PHP_VERSION=$php_version
 
 COPY packages /tmp/packages
 
+# NOTE: package `icu-data-full` allows to use intl correctly.
+# See https://github.com/gliderlabs/docker-alpine/issues/144
 RUN apk add --update --no-cache \
-    ca-certificates tzdata imagemagick \
+    ca-certificates tzdata imagemagick icu-data-full \
     $(sed -e "s/^/php$PHP_VERSION-/" /tmp/packages | xargs)
 
 RUN rm -rf /tmp/* && \
