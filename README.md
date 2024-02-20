@@ -1,7 +1,7 @@
 # PHP CLI/FPM on Alpine Linux
 
-Alpine Linux built with common [PHP extensions](./cli/packages) and [Image
-Magick](https://github.com/ImageMagick/ImageMagick).
+Alpine Linux built with common [PHP extensions](./cli/packages) and
+[Image Magick](https://github.com/ImageMagick/ImageMagick).
 
 ## Install
 
@@ -13,45 +13,43 @@ cd php-alpine
 make build
 ```
 
-See the provided [Makefile](./Makefile) to know how and what to build.
-You need at least the "base" version in order to build a variant. Why is that?
-Because this considerably speedup the build process.
+See the provided [Makefile](./Makefile) to know how and what to build. You need
+at least the "base" version in order to build a variant. Why is that? Because
+this considerably speedup the build process.
 
-Eg. `cli-8.2-whktmltopdf` depends on `cli-8.2` and so on.
+Eg. `cli-8.3-whktmltopdf` depends on `cli-8.3` and so on.
 
 ## Tags
 
 Versions and tags are based on PHP 5.x, 7.x and 8.x versions.
 
 - `cli` tag is designed to be used for command line stuff
-- `fpm` tag is designed to be used with PHP-FPM (and fits very well with an Alpine/Nginx docker image).
+- `fpm` tag is designed to be used with PHP-FPM (and fits very well with an
+  Alpine/Nginx docker image).
 
-| cli        | fpm        |
-| ---------- | ---------- |
-| `cli-8.2`  | `fpm-8.2`  |
-| `cli-8.1`  | `fpm-8.1`  |
-| `cli-8.0`  | `fpm-8.0`  |
-| `cli-7.4`  | `fpm-7.4`  |
-| `cli-7.3`  | `fpm-7.3`  |
-| `cli-7.2`  | `fpm-7.2`  |
-| `cli-7.1`  | `fpm-7.1`  |
-| `cli-7.0`  | `fpm-7.0`  |
-| `cli-5.6`  | `fpm-5.6`  |
+| cli       | fpm       |
+| --------- | --------- |
+| `cli-8.3` | `fpm-8.3` |
+| `cli-8.2` | `fpm-8.2` |
+| `cli-8.1` | `fpm-8.1` |
+| `cli-8.0` | `fpm-8.0` |
+| `cli-7.4` | `fpm-7.4` |
+| `cli-7.3` | `fpm-7.3` |
+| `cli-7.2` | `fpm-7.2` |
+| `cli-7.1` | `fpm-7.1` |
+| `cli-7.0` | `fpm-7.0` |
+| `cli-5.6` | `fpm-5.6` |
 
-- `wkhtmltopdf` variant embarks the [docker-alpine-wkhtmltopdf](https://github.com/madnight/docker-alpine-wkhtmltopdf), the size of the image then increases aproximately to 100MB.
+- `wkhtmltopdf` variant embarks the
+  [docker-alpine-wkhtmltopdf](https://github.com/madnight/docker-alpine-wkhtmltopdf),
+  the size of the image then increases aproximately to 100MB.
 - `composer` variant include [php composer](https://getcomposer.org)
 
-| cli-composer        | cli-wkhtmltopdf       | fpm-wkhtmltopdf       |
-| ------------------- | --------------------- | --------------------- |
-| `cli-8.2-composer`  | `cli-8.2-wkhtmltopdf` | `fpm-8.2-wkhtmltopdf` |
-| `cli-8.1-composer`  | `cli-8.1-wkhtmltopdf` | `fpm-8.1-wkhtmltopdf` |
-| -                   | -                     | -                     |
-| -                   | -                     | -                     |
-| -                   | -                     | -                     |
-| -                   | -                     | -                     |
-| -                   | -                     | -                     |
-| -                   | -                     | -                     |
-| -                   | -                     | -                     |
+| cli-composer       | cli-wkhtmltopdf       | fpm-wkhtmltopdf       |
+| ------------------ | --------------------- | --------------------- |
+| `cli-8.3-composer` | `cli-8.3-wkhtmltopdf` | `fpm-8.3-wkhtmltopdf` |
+| `cli-8.2-composer` | `cli-8.2-wkhtmltopdf` | `fpm-8.2-wkhtmltopdf` |
+| `cli-8.1-composer` | `cli-8.1-wkhtmltopdf` | `fpm-8.1-wkhtmltopdf` |
 
 ## Wkhtmltopdf variant
 
