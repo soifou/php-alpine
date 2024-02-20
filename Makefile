@@ -1,24 +1,29 @@
 .PHONY: build clean
 
 REPO=soifou/php-alpine
-VERSIONS?="8.1 8.2"
+VERSIONS?="8.1 8.2 8.3"
 BUILDKIT_PROGRESS=plain
 COMPOSER_VERSION=2.6.3
 
 build:
 	# CLI
+	docker build -t $(REPO):cli-8.3 --build-arg php_version=83 --build-arg alpine_version=edge cli
 	docker build -t $(REPO):cli-8.2 --build-arg php_version=82 --build-arg alpine_version=edge cli
 	docker build -t $(REPO):cli-8.1 --build-arg php_version=81 --build-arg alpine_version=3.17 cli
 	# CLI (WKHTMLTOPDF)
+	docker build -t $(REPO):cli-8.3-wkhtmltopdf --build-arg php_version=8.3 cli-wkhtmltopdf
 	docker build -t $(REPO):cli-8.2-wkhtmltopdf --build-arg php_version=8.2 cli-wkhtmltopdf
 	docker build -t $(REPO):cli-8.1-wkhtmltopdf --build-arg php_version=8.1 cli-wkhtmltopdf
 	# CLI (COMPOSER)
+	docker build -t $(REPO):cli-8.3-composer --build-arg php_version=8.3 --build-arg composer_version=$(COMPOSER_VERSION) cli-composer
 	docker build -t $(REPO):cli-8.2-composer --build-arg php_version=8.2 --build-arg composer_version=$(COMPOSER_VERSION) cli-composer
 	docker build -t $(REPO):cli-8.1-composer --build-arg php_version=8.1 --build-arg composer_version=$(COMPOSER_VERSION) cli-composer
 	# FPM
+	docker build -t $(REPO):fpm-8.3 --build-arg php_version=83 --build-arg alpine_version=edge fpm
 	docker build -t $(REPO):fpm-8.2 --build-arg php_version=82 --build-arg alpine_version=edge fpm
 	docker build -t $(REPO):fpm-8.1 --build-arg php_version=81 --build-arg alpine_version=3.17 fpm
 	# FPM (WKHTMLTOPDF)
+	docker build -t $(REPO):fpm-8.3-wkhtmltopdf --build-arg php_version=8.3 fpm-wkhtmltopdf
 	docker build -t $(REPO):fpm-8.2-wkhtmltopdf --build-arg php_version=8.2 fpm-wkhtmltopdf
 	docker build -t $(REPO):fpm-8.1-wkhtmltopdf --build-arg php_version=8.1 fpm-wkhtmltopdf
 
@@ -40,6 +45,8 @@ fpm:
 	# 	docker build -t $(REPO):fpm-$$i --build-arg timezone=$(TIMEZONE) $$i/fpm ; \
 	# done
 
+cli-8.3:
+	docker build -t $(REPO):cli-8.3 --build-arg php_version=83 --build-arg alpine_version=edge cli
 cli-8.2:
 	docker build -t $(REPO):cli-8.2 --build-arg php_version=82 --build-arg alpine_version=edge cli
 cli-8.1:
