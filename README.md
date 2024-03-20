@@ -59,8 +59,6 @@ rendering.
 
 ```yaml
 ---
-version: '3.7'
-
 networks:
     lamp-network:
         name: lamp-network
