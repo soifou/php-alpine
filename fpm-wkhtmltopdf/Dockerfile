@@ -6,22 +6,25 @@ FROM soifou/php-alpine:fpm-$php_version
 ARG alpine_version=edge
 
 USER root
-#################################################################################################
-# Wkhtmltopdf 0.12.5-dev with patched Qt
-# See: https://github.com/StefanStefanoff/docker-alpine-wkhtmltopdf
-#################################################################################################
 
-# FIXME: openssl1.1-compat available only on testing repo?
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/$alpine_version/testing" >> /etc/apk/repositories && \
-    apk add --update --no-cache \
-        libgcc libstdc++ libx11 glib libxrender libxext libintl \
-        ttf-dejavu ttf-droid ttf-freefont ttf-liberation curl-dev openssl1.1-compat
+RUN apk add --no-cache \
+        libstdc++ \
+        libx11 \
+        libxrender \
+        libxext \
+        libssl3 \
+        ca-certificates \
+        fontconfig \
+        freetype \
+        ttf-droid \
+        ttf-freefont \
+        ttf-liberation
 
-COPY --from=atrelios/docker-alpine-wkhtmltopdf:latest-amd64 \
-    /bin/wkhtmltopdf /usr/bin/wkhtmltopdf
+COPY --from=surnet/alpine-wkhtmltopdf:3.20.1-0.12.6-small /bin/wkhtmltopdf /bin/
 
-RUN chmod +x /usr/bin/wkhtmltopdf && \
-    rm -rf /tmp/src && \
+RUN chmod +x /bin/wkhtmltopdf && \
+    ln -s /bin/wkhtmltopdf /usr/bin/wkhtmltopdf && \
+    rm -rf /tmp/* && \
     rm -rf /var/cache/apk/*
-#################################################################################################
+
 USER dude
