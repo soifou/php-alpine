@@ -8,7 +8,7 @@ COPY packages /tmp/packages
 # NOTE: package `icu-data-full` allows to use intl correctly.
 # See https://github.com/gliderlabs/docker-alpine/issues/144
 RUN apk add --update --no-cache \
-    ca-certificates tzdata imagemagick icu-data-full \
+    ca-certificates tzdata imagemagick icu-libs icu-data-full \
     $(sed -e "s/^/php$PHP_VERSION-/" /tmp/packages | xargs)
 
 RUN rm -rf /tmp/src && \
@@ -24,6 +24,6 @@ COPY php-fpm.conf /etc/php$PHP_VERSION/php-fpm.conf
 RUN adduser -G wheel -D dude
 USER dude
 
-WORKDIR /app
-EXPOSE 9000
-ENTRYPOINT ["php-fpm", "-F"]
+# WORKDIR /app
+# EXPOSE 9000
+# ENTRYPOINT ["php-fpm", "-F"]

@@ -19,5 +19,5 @@ RUN command -v php >/dev/null 2>&1 || \
 
 COPY php.ini /etc/php$PHP_VERSION/conf.d/50_setting.ini
 
-ENTRYPOINT ["php"]
-CMD ["--help"]
+# ENTRYPOINT ["php"]
+# CMD ["--help"]

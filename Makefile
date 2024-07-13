@@ -52,6 +52,9 @@ cli-8.2:
 cli-8.1:
 	docker build -t $(REPO):cli-8.1 --build-arg php_version=81 --build-arg alpine_version=3.17 cli
 
+slim:
+	DOCKER_API_VERSION=1.42 slim build --target soifou/php-alpine:fpm-8.3-wkhtmltopdf --pull --tag soifou/php-alpine:fpm-8.3-wkhtmltopdf.slim --http-probe-off --include-bin /usr/bin/php-fpm --include-bin /usr/bin/wkhtmltopdf --include-path /lib --include-path /usr/lib --include-path /etc/php83 --include-path /usr/share/zoneinfo --include-path /usr/share/icu --include-path /usr/share/fonts --include-path /etc/fonts --include-path /usr/share/fontconfig
+
 
 clean:
 	for i in $(VERSIONS) ; do \
