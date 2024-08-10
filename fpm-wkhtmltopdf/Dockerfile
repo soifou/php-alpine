@@ -5,8 +5,6 @@ FROM soifou/php-alpine:fpm-$php_version
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG alpine_version=edge
 
-USER root
-
 RUN apk add --no-cache \
         libstdc++ \
         libx11 \
@@ -26,5 +24,3 @@ RUN chmod +x /bin/wkhtmltopdf && \
     ln -s /bin/wkhtmltopdf /usr/bin/wkhtmltopdf && \
     rm -rf /tmp/* && \
     rm -rf /var/cache/apk/*
-
-USER dude

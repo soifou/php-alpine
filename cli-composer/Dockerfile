@@ -1,4 +1,4 @@
-ARG php_version=8.2
+ARG php_version=8.3
 FROM soifou/php-alpine:cli-$php_version
 
 ARG composer_version=2.6.3

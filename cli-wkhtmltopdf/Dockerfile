@@ -18,7 +18,7 @@ RUN apk add --no-cache \
         ttf-freefont \
         ttf-liberation
 
-COPY --from=surnet/alpine-wkhtmltopdf:3.20.1-0.12.6-small /bin/wkhtmltopdf /bin/
+COPY --from=surnet/alpine-wkhtmltopdf:3.20.2-0.12.6-small /bin/wkhtmltopdf /bin/
 
 RUN chmod +x /bin/wkhtmltopdf && \
     ln -s /bin/wkhtmltopdf /usr/bin/wkhtmltopdf && \
