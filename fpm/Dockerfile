@@ -17,5 +17,8 @@ RUN rm -rf /tmp/src && \
 RUN command -v php-fpm >/dev/null 2>&1 || \
     ln -s /usr/sbin/php-fpm$PHP_VERSION /usr/bin/php-fpm
 
+RUN command -v php >/dev/null 2>&1 || \
+    ln -s /usr/bin/php$PHP_VERSION /usr/bin/php
+
 COPY php.ini /etc/php$PHP_VERSION/conf.d/50_setting.ini
 COPY php-fpm.conf /etc/php$PHP_VERSION/php-fpm.conf
